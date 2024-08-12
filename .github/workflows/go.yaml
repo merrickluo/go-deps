@@ -5,37 +5,35 @@ on:
     inputs:
       REPOSITORY_TYPE:
         description: Repository type
-        type: choice
-        default: GitHub
-        options:
-          - GitHub
-          - URI
+        type: string
+        required: true
 
       REPOSITORY_ADDRESS:
         description: Repository address
+        type: string
         required: true
 
       REPOSITORY_REFERENCE:
         description: Reference for repository
+        type: string
         required: true
 
       EXPORT_TYPE:
         description: Export type for dependency package
-        type: choice
+        type: string
         default: all
-        options:
-          - all
-          - deps
-          - vendor
 
       EXPORT_TAG:
         description: Export tag for dependency package
+        type: string
         required: true
 
       VENDOR_PATH:
+        type: string
         description: The path of Vendor dir in the vendor dependency package. If need to defined ${S} in ebuild, also needs to be defined this field. Default to using export tag
 
       SRC_PATH:
+        type: string
         description: The path of Go source code in the repository
 
       WORKING_IN_TMPFS:

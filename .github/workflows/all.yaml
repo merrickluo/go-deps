@@ -1,0 +1,39 @@
+name: All
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: "${{ steps.parse_yaml.outputs.matrix }}"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install jq for build matrix
+        run: sudo apt-get install -y jq
+
+      - name: Read and parse YAML file for names
+        id: parse_yaml
+        run: |
+          files=($(ls recipes/*))
+          value=$(jq -s --compact-output '{include: .}' "${files[@]}")
+          echo "matrix=$value" >> $GITHUB_OUTPUT
+
+      - run: |
+          echo "${{ steps.parse_yaml.outputs.matrix }}"
+
+  dispatch:
+    needs: [prepare]
+    strategy:
+      matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
+    uses: ./.github/workflows/go.yaml
+    with:
+      REPOSITORY_TYPE: ${{ matrix.type }}
+      REPOSITORY_ADDRESS: ${{ matrix.address }}
+      REPOSITORY_REFERENCE: ${{ matrix.version }}
+      EXPORT_TAG: ${{ matrix.name }}-${{ matrix.version }}
