@@ -1,6 +1,6 @@
 {
   "name": "tailscale",
   "type": "GitHub",
-  "address": "https://github.com/tailscale/tailscale",
+  "address": "tailscale/tailscale",
   "version": "v1.70.0"
 }
