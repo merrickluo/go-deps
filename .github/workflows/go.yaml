@@ -5,11 +5,7 @@ on:
     inputs:
       REPOSITORY_TYPE:
         description: Repository type
-        type: choice
-        default: GitHub
-        options:
-          - GitHub
-          - URI
+        require: true
 
       REPOSITORY_ADDRESS:
         description: Repository address
@@ -21,7 +17,6 @@ on:
 
       EXPORT_TYPE:
         description: Export type for dependency package
-        type: choice
         default: all
         options:
           - all
