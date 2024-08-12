@@ -6,7 +6,7 @@ on:
       REPOSITORY_TYPE:
         description: Repository type
         type: string
-        require: true
+        required: true
 
       REPOSITORY_ADDRESS:
         description: Repository address
