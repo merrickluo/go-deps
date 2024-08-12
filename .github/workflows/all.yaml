@@ -29,17 +29,11 @@ jobs:
           echo "${{ steps.parse_yaml.outputs.matrix }}"
 
   dispatch:
-    runs-on: ubuntu-latest
     needs: [prepare]
     strategy:
       matrix: ${{ fromJSON(needs.prepare.outputs.matrix) }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Call Go workflow
-        uses: ./.github/workflows/go.yaml
-        with:
-          REPOSITORY_TYPE: ${{ matrix.type }}
-          REPOSITORY_ADDRESS: ${{ matrix.address }}
-          REPOSITORY_REFERENCE: ${{ matrix.version }}
+    uses: ./.github/workflows/go.yaml
+    with:
+      REPOSITORY_TYPE: ${{ matrix.type }}
+      REPOSITORY_ADDRESS: ${{ matrix.address }}
+      REPOSITORY_REFERENCE: ${{ matrix.version }}
