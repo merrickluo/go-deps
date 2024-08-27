@@ -68,7 +68,7 @@ jobs:
   generate:
     runs-on: ubuntu-latest
     needs: [check]
-    if: needs.check.outputs.skip != false
+    if: ${{ ! needs.check.outputs.skip == true }}
 
     env:
       TAG: ${{ inputs.EXPORT_TAG }}
