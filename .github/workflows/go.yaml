@@ -46,6 +46,7 @@ permissions:
 
 jobs:
   check:
+    runs-on: ubuntu-latest
     env:
       TAG: ${{ inputs.EXPORT_TAG }}
 
